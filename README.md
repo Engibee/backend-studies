@@ -15,6 +15,7 @@ Uma API RESTful simples construída com Node.js, Express e PostgreSQL.
 
 ### Usuários
 
+#### Endpoints RESTful Padrão
 - **GET /users** - Listar todos os usuários
 - **GET /users/:id** - Obter um usuário específico
 - **POST /users** - Criar um novo usuário
@@ -23,9 +24,16 @@ Uma API RESTful simples construída com Node.js, Express e PostgreSQL.
   - Body: `{ "name": "Novo Nome", "email": "novoemail@exemplo.com" }`
 - **DELETE /users/:id** - Excluir um usuário
 
-## Exemplo de Uso
+#### Endpoints via URL (Sem necessidade de corpo da requisição)
+- **GET /users/create?name=Nome&email=email@exemplo.com** - Criar um novo usuário via URL
+- **GET /users/update/5?name=NovoNome&email=novo@exemplo.com** - Atualizar um usuário via URL
+- **GET /users/delete/5** - Excluir um usuário via URL
 
-### Criar um novo usuário
+## Exemplos de Uso
+
+### Usando Endpoints RESTful Padrão
+
+#### Criar um novo usuário (POST)
 
 ```bash
 curl -X POST http://localhost:3000/users \
@@ -33,11 +41,54 @@ curl -X POST http://localhost:3000/users \
   -d '{"name": "Novo Usuário", "email": "novo@email.com"}'
 ```
 
-### Listar todos os usuários
+#### Listar todos os usuários (GET)
 
 ```bash
 curl http://localhost:3000/users
 ```
+
+#### Atualizar um usuário (PUT)
+
+```bash
+curl -X PUT http://localhost:3000/users/5 \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Nome Atualizado", "email": "atualizado@email.com"}'
+```
+
+#### Excluir um usuário (DELETE)
+
+```bash
+curl -X DELETE http://localhost:3000/users/5
+```
+
+### Usando Endpoints via URL
+
+#### Criar um novo usuário via URL
+
+```bash
+curl "http://localhost:3000/users/create?name=Novo%20Usuario&email=novo@email.com"
+```
+
+#### Atualizar um usuário via URL
+
+```bash
+curl "http://localhost:3000/users/update/5?name=Nome%20Atualizado&email=atualizado@email.com"
+```
+
+#### Excluir um usuário via URL
+
+```bash
+curl "http://localhost:3000/users/delete/5"
+```
+
+### Acessando via Navegador
+
+Você também pode acessar diretamente pelo navegador:
+
+- Para listar usuários: http://localhost:3000/users
+- Para criar um usuário: http://localhost:3000/users/create?name=Novo%20Usuario&email=novo@email.com
+- Para atualizar um usuário: http://localhost:3000/users/update/5?name=Nome%20Atualizado&email=atualizado@email.com
+- Para excluir um usuário: http://localhost:3000/users/delete/5
 
 ## Tecnologias Utilizadas
 
